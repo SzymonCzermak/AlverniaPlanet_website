@@ -114,6 +114,69 @@ const THIRD: Record<Locale, { title: string; bullets: string[] }> = {
   },
 };
 
+type VideoItem = { title: string; body: string; src: string; poster: string; embed?: boolean };
+
+const VIDEO_SHOWCASE: Record<
+  Locale,
+  {
+    title: string;
+    items: VideoItem[];
+  }
+> = {
+  pl: {
+    title: "Zobacz wideo z wydarzeń",
+    items: [
+      {
+        title: "Koncert w kopule",
+        body: "Atmosfera live w sferycznej scenie.",
+        src: "https://www.youtube.com/embed/jt6zh-vaFNc",
+        poster: "https://img.youtube.com/vi/jt6zh-vaFNc/hqdefault.jpg",
+        embed: true,
+      },
+      {
+        title: "Bankiet i gala",
+        body: "Wieczorna aranżacja z elegancką oprawą.",
+        src: "https://www.youtube.com/embed/PWtTaxqxufE",
+        poster: "https://img.youtube.com/vi/PWtTaxqxufE/hqdefault.jpg",
+        embed: true,
+      },
+      {
+        title: "Club / afterparty",
+        body: "Światła i dźwięk w klubowym wydaniu.",
+        src: "https://www.youtube.com/embed/BkdKk5Jc_RA",
+        poster: "https://img.youtube.com/vi/BkdKk5Jc_RA/hqdefault.jpg",
+        embed: true,
+      },
+    ],
+  },
+  en: {
+    title: "Event video highlights",
+    items: [
+      {
+        title: "Concert in the dome",
+        body: "Live atmosphere on a spherical stage.",
+        src: "https://www.youtube.com/embed/jt6zh-vaFNc",
+        poster: "https://img.youtube.com/vi/jt6zh-vaFNc/hqdefault.jpg",
+        embed: true,
+      },
+      {
+        title: "Banquet and gala",
+        body: "Evening setup with elegant styling.",
+        src: "https://www.youtube.com/embed/PWtTaxqxufE",
+        poster: "https://img.youtube.com/vi/PWtTaxqxufE/hqdefault.jpg",
+        embed: true,
+      },
+      {
+        title: "Club / afterparty",
+        body: "Lights and sound in a club vibe.",
+        src: "https://www.youtube.com/embed/BkdKk5Jc_RA",
+        poster: "https://img.youtube.com/vi/BkdKk5Jc_RA/hqdefault.jpg",
+        embed: true,
+      },
+    ],
+  },
+};
+
 const PREVIEW_IMG: Record<Locale, { src: string; alt: string }>[] = [
   {
     pl: { src: "/galeria/Ogólne/webp/1.webp", alt: "Kopuły z lotu ptaka" },
@@ -332,6 +395,59 @@ function EventVideo({ src, poster, className, loadingLabel, fallbackText }: Even
   );
 }
 
+interface VideoTileProps {
+  item: VideoItem;
+  loadingLabel: string;
+  fallbackText: string;
+}
+
+function VideoTile({ item, loadingLabel, fallbackText }: VideoTileProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  if (item.embed) {
+    return (
+      <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+        <div className="relative h-48 sm:h-52 md:h-56 overflow-hidden bg-black/40">
+          {!isLoaded && (
+            <div className="absolute inset-0 z-10 flex items-center justify-center text-xs sm:text-sm text-white/80 bg-black/50 backdrop-blur-[2px] animate-pulse pointer-events-none">
+              {loadingLabel}
+            </div>
+          )}
+          <iframe
+            className="absolute inset-0 h-full w-full"
+            src={`${item.src}?rel=0&modestbranding=1&playsinline=1`}
+            title={item.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            loading="lazy"
+            onLoad={() => setIsLoaded(true)}
+          />
+        </div>
+        <div className="px-4 pb-4 pt-3 space-y-1.5">
+          <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+          <p className="text-sm text-gray-200 leading-relaxed">{item.body}</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden rounded-2xl bg-white/5 ring-1 ring-white/10 shadow-[0_20px_60px_rgba(0,0,0,0.35)]">
+      <EventVideo
+        className="h-48 sm:h-52 md:h-56"
+        src={item.src}
+        poster={item.poster}
+        loadingLabel={loadingLabel}
+        fallbackText={fallbackText}
+      />
+      <div className="px-4 pb-4 pt-3 space-y-1.5">
+        <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+        <p className="text-sm text-gray-200 leading-relaxed">{item.body}</p>
+      </div>
+    </div>
+  );
+}
+
 interface MapFrameProps {
   src: string;
   loadingLabel: string;
@@ -367,6 +483,7 @@ export default function EventsPage() {
   const t = COPY[loc];
   const ui = UI_TEXT[loc];
   const domes = DOMES[loc];
+  const videoShowcase = VIDEO_SHOWCASE[loc];
 
   return (
     <main className="relative min-h-screen">
@@ -382,13 +499,16 @@ export default function EventsPage() {
           <div className="relative overflow-hidden rounded-3xl ring-1 ring-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.55)]">
             <div className="relative aspect-[16/9] bg-black">
               <video
-                src="/wydarzenia/Wesele.mp4"
                 className="absolute inset-0 h-full w-full object-cover"
                 autoPlay
                 loop
                 muted
                 playsInline
-              />
+              >
+                <source src="/wydarzenia/AP_wydarzenia.webm" type="video/webm" />
+                <source src="/wydarzenia/AP_wydarzenia.mp4" type="video/mp4" />
+                {ui.videoFallback}
+              </video>
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/35 to-black/80" />
               <div className="relative flex h-full items-center justify-center p-6 sm:p-10 text-center force-overlay">
                 <div className="space-y-2">
@@ -513,7 +633,33 @@ export default function EventsPage() {
               </Card>
             </li>
 
-            {/* 4. Cztery kopuły obok siebie */}
+            {/* 4. Trzy wideo obok siebie */}
+            <li>
+              <Card
+                variant="glass"
+                className="mx-2 sm:mx-3 md:mx-4 lg:mx-6 xl:mx-8"
+              >
+                <div className="space-y-6">
+                  <div className="text-center space-y-2">
+                    <h2 className="text-2xl md:text-3xl font-bold leading-snug">
+                      {videoShowcase.title}
+                    </h2>
+                  </div>
+                  <div className="grid gap-4 sm:gap-5 lg:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                    {videoShowcase.items.map((item) => (
+                      <VideoTile
+                        key={item.title}
+                        item={item}
+                        loadingLabel={ui.loadingVideo}
+                        fallbackText={ui.videoFallback}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </Card>
+            </li>
+
+            {/* 5. Cztery kopuły obok siebie */}
             <li>
               <div className="mx-2 sm:mx-3 md:mx-4 lg:mx-6 xl:mx-8">
                 <div className="grid gap-6 md:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -600,7 +746,7 @@ export default function EventsPage() {
               </div>
             </li>
 
-            {/* 5. Mapka graficzna + przycisk do galerii */}
+            {/* 6. Mapka graficzna + przycisk do galerii */}
             <li>
               <Card
                 variant="solid"
@@ -631,7 +777,7 @@ export default function EventsPage() {
               </Card>
             </li>
 
-            {/* 6. Kontakt + mapa Google z loaderem */}
+            {/* 7. Kontakt + mapa Google z loaderem */}
             <li>
               <Card
                 variant="solid"

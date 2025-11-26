@@ -11,8 +11,6 @@ type Locale = "pl" | "en";
 type Feature = { title: string; body: string };
 type GalleryItem = { title: string; body: string; image: string };
 
-const BOOKING_URL = "https://alverniaplanet.bookero.pl";
-
 const COPY: Record<
   Locale,
   {
@@ -27,10 +25,6 @@ const COPY: Record<
     features: Feature[];
     galleryTitle: string;
     galleryItems: GalleryItem[];
-    helpTitle: string;
-    helpPoints: string[];
-    bookCta: string;
-    contactCta: string;
   }
 > = {
   pl: {
@@ -40,8 +34,8 @@ const COPY: Record<
       "Pełne zanurzenie w sferycznym obrazie i dźwięku — seanse, pokazy edukacyjne i prezentacje specjalne.",
     videoFallback: "Twój browser nie wspiera elementu video.",
     soonBadge: "Wkrótce",
-    soonBody: "Kino 360° wróci z nowym programem – daj nam znać, jeśli chcesz rezerwację na start.",
-    soonCta: "Napisz do nas",
+    soonBody: "Otwarcie w przyszłym roku.",
+    soonCta: "Napisz do nas po więcej informacji",
     featuresTitle: "Co czeka w kinie 360°",
     features: [
       {
@@ -72,18 +66,18 @@ const COPY: Record<
     galleryTitle: "Zobacz przestrzeń",
     galleryItems: [
       {
-        title: "Kopuła projekcyjna 360°",
-        body: "Sferyczna przestrzeń gotowa na mappingi i filmy immersyjne.",
+        title: "Kompleks kopuł nocą",
+        body: "Widok z lotu ptaka na wszystkie kopuły Alvernia Planet.",
         image: "/galeria/Ogólne/webp/4.webp",
       },
       {
-        title: "Strefa widowni i sceny",
-        body: "Przestrzeń na zapowiedzi, wprowadzenia i prelekcje przed seansem.",
+        title: "Wejście do kopuły",
+        body: "Główne lobby z charakterystycznym łukowym portalem.",
         image: "/galeria/Ogólne/webp/5.webp",
       },
       {
-        title: "Multimedia w ruchu",
-        body: "Światła, dźwięk i projekcja współgrają z narracją pokazu.",
+        title: "Tunel wejściowy",
+        body: "Przeszklony korytarz prowadzący do wnętrza kompleksu.",
         image: "/galeria/Ogólne/webp/6.webp",
       },
       {
@@ -92,14 +86,6 @@ const COPY: Record<
         image: "/galeria/Ogólne/webp/1.webp",
       },
     ],
-    helpTitle: "Jak możemy pomóc",
-    helpPoints: [
-      "Pokazy edukacyjne, prezentacje marek i specjalne premiery w formule 360°.",
-      "Możliwość rezerwacji samodzielnego seansu lub pakietu z innymi atrakcjami.",
-      "Wsparcie przy dostosowaniu plików i scenariusza do projekcji fulldome.",
-    ],
-    bookCta: "Zarezerwuj seans 360°",
-    contactCta: "Zapytaj o ofertę",
   },
   en: {
     heroTag: "Attractions",
@@ -108,8 +94,8 @@ const COPY: Record<
       "Total immersion in spherical image and sound—screenings, educational shows, and special presentations.",
     videoFallback: "Your browser does not support the video element.",
     soonBadge: "Coming soon",
-    soonBody: "The 360° cinema returns with a new program—tell us if you want to book for launch.",
-    soonCta: "Write to us",
+    soonBody: "Opening next year.",
+    soonCta: "Write to us for more information",
     featuresTitle: "What awaits in the 360° cinema",
     features: [
       {
@@ -140,18 +126,18 @@ const COPY: Record<
     galleryTitle: "See the venue",
     galleryItems: [
       {
-        title: "360° projection dome",
-        body: "A spherical space ready for mapping and immersive films.",
+        title: "Domes complex at night",
+        body: "Aerial view of all Alvernia Planet domes after dark.",
         image: "/galeria/Ogólne/webp/4.webp",
       },
       {
-        title: "Audience and stage zone",
-        body: "Space for intros, announcements, and talks before the show.",
+        title: "Dome entrance",
+        body: "Main lobby with the signature arched portal.",
         image: "/galeria/Ogólne/webp/5.webp",
       },
       {
-        title: "Multimedia in motion",
-        body: "Lights, sound, and projection work together with the story.",
+        title: "Entrance tunnel",
+        body: "A glass corridor leading into the complex interior.",
         image: "/galeria/Ogólne/webp/6.webp",
       },
       {
@@ -160,14 +146,6 @@ const COPY: Record<
         image: "/galeria/Ogólne/webp/1.webp",
       },
     ],
-    helpTitle: "How we can help",
-    helpPoints: [
-      "Educational shows, brand presentations, and special premieres in a 360° format.",
-      "Book a standalone screening or bundle it with other attractions.",
-      "Support in adapting files and scenarios for fulldome projection.",
-    ],
-    bookCta: "Book a 360° screening",
-    contactCta: "Ask for an offer",
   },
 };
 
@@ -177,7 +155,7 @@ export default function Kino360Content() {
   const copy = COPY[loc];
 
   return (
-    <main className="relative z-10 min-h-screen">
+    <main className="kino360-page relative z-10 min-h-screen">
       <section className="relative z-10 px-4 pt-12 sm:pt-16">
         <div className="mx-auto w-full max-w-6xl mb-10 sm:mb-12">
           <div className="relative overflow-hidden rounded-3xl ring-1 ring-white/10 shadow-[0_40px_120px_rgba(0,0,0,0.55)]">
@@ -254,37 +232,6 @@ export default function Kino360Content() {
           <Card className="space-y-6" variant="solid">
             <TourLineAccentTitle variant="cool">{copy.galleryTitle}</TourLineAccentTitle>
             <TourLineGalleryRow items={copy.galleryItems} />
-          </Card>
-
-          <Card title={copy.helpTitle} titleCentered titleDivider>
-            <div className="space-y-3 text-gray-100 text-base leading-relaxed">
-              {copy.helpPoints.map((line) => (
-                <div key={line} className="flex items-start gap-3">
-                  <span className="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-cyan-400/90 text-black font-bold shadow-[0_0_16px_rgba(34,211,238,0.35)] ring-1 ring-black/15">
-                    ✓
-                  </span>
-                  <p>{line}</p>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 flex flex-col sm:flex-row sm:justify-center sm:gap-3">
-              <PrimaryButton
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                size="lg"
-                className="bg-cyan-400/90 hover:bg-cyan-400 text-black ring-cyan-100 shadow-[0_0_18px_rgba(34,211,238,0.35)]"
-              >
-                {copy.bookCta}
-              </PrimaryButton>
-              <PrimaryButton
-                href="/kontakt"
-                size="lg"
-                className="mt-3 sm:mt-0 bg-transparent text-white ring-1 ring-white/40 shadow-none hover:bg-white/10 hover:text-white"
-              >
-                {copy.contactCta}
-              </PrimaryButton>
-            </div>
           </Card>
         </div>
       </section>

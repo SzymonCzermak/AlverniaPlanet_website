@@ -45,7 +45,7 @@ export function AppBar() {
               onClick={() => setOpen((v) => !v)}
               aria-label={open ? t("aria.close_menu") : t("aria.open_menu")}
               aria-expanded={open}
-              className="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15 active:scale-95 transition"
+              className="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20 hover:bg-white/15 active:scale-95 transition"
             >
               <svg
                 className="h-5 w-5 text-white"
@@ -70,7 +70,7 @@ export function AppBar() {
             </button>
 
             {/* linki desktop po LEWEJ */}
-            <nav className="hidden md:flex items-center gap-3 lg:gap-4 text-sm whitespace-nowrap">
+            <nav className="hidden lg:flex items-center gap-3 lg:gap-4 text-sm whitespace-nowrap">
               {/* Atrakcje (dropdown: hover + focus + delay to allow clicking) */}
               <div
                 className="relative"
@@ -179,7 +179,7 @@ export function AppBar() {
           {/* PRAWO: O nas + Kontakt (desktop) + Rezerwacja zawsze widoczna + switch języka */}
           <div className="flex items-center justify-end gap-3 md:gap-4 min-w-0">
             {/* linki desktop po PRAWEJ */}
-            <nav className="hidden md:flex items-center gap-3 lg:gap-4 text-sm whitespace-nowrap">
+            <nav className="hidden lg:flex items-center gap-3 lg:gap-4 text-sm whitespace-nowrap">
               {/* O nas (dropdown) */}
               <div
                 className="relative"
@@ -322,7 +322,7 @@ export function AppBar() {
 
         {/* MENU MOBILNE (reszta linków w burgerze) */}
         <div
-          className={`md:hidden grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ${
+          className={`lg:hidden grid overflow-hidden transition-[grid-template-rows,opacity] duration-300 ${
             open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
           }`}
           aria-hidden={!open}

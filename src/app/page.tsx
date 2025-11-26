@@ -304,6 +304,20 @@ export default function Page() {
   const hintText = locale === "en" ? "Scroll down" : "Przewiń w dół";
   const heroVideoFallback = loc === "en" ? "Your browser does not support the video element." : "Twój browser nie wspiera elementu video.";
   const latestNews = useMemo(() => getLatestNews(loc, 3), [loc]);
+  const eventPhotos = [
+    {
+      src: "/galeria/Wydarzenia/webp/1.webp",
+      alt: loc === "en" ? "Stage setup during an event" : "Scenografia sceny podczas wydarzenia",
+    },
+    {
+      src: "/galeria/Wydarzenia/webp/2.webp",
+      alt: loc === "en" ? "Guests networking in the dome" : "Goście podczas networkingu w kopule",
+    },
+    {
+      src: "/galeria/Wydarzenia/webp/3.webp",
+      alt: loc === "en" ? "Live performance in the dome" : "Występ na żywo w kopule",
+    },
+  ];
 
   const cycleRef = useRef<number | null>(null);
   useEffect(() => {
@@ -449,6 +463,23 @@ export default function Page() {
               titleDivider
             >
               <p className="text-gray-200 text-lg">{copy.events.description}</p>
+              <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {eventPhotos.map((photo) => (
+                  <div
+                    key={photo.src}
+                    className="relative w-full aspect-[4/3] rounded-xl overflow-hidden bg-white/5 ring-1 ring-white/10"
+                  >
+                    <Image
+                      src={photo.src}
+                      alt={photo.alt}
+                      fill
+                      sizes="(min-width: 1024px) 30vw, (min-width: 768px) 33vw, 100vw"
+                      className="object-cover"
+                      priority={false}
+                    />
+                  </div>
+                ))}
+              </div>
               <div className="mt-6 flex justify-center">
                 <PrimaryButton href={copy.events.href} size="lg">
                   {copy.events.cta}
