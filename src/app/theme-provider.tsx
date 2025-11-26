@@ -17,32 +17,14 @@ const ThemeContext = createContext<ThemeContextValue>({
 });
 
 function getInitialTheme(): Theme {
-  // SSR always renders dark to avoid hydration mismatch; real preference is applied on client.
+  // SSR i pierwsze renderowanie klienta zawsze startują w trybie ciemnym.
   return "dark";
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => getInitialTheme());
-  const [hydrated, setHydrated] = useState(false);
-
   useEffect(() => {
-    // On client, read persisted preference or media query, then update state.
-    if (!hydrated) {
-      const saved = (() => {
-        try {
-          const value = localStorage.getItem("theme");
-          return value === "light" || value === "dark" ? value : null;
-        } catch {
-          return null;
-        }
-      })();
-      const prefersDark =
-        window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const resolved: Theme = saved ?? (prefersDark ? "dark" : "light");
-      if (resolved !== theme) setTheme(resolved);
-      setHydrated(true);
-    }
-
+    // Zawsze wymuszamy aktualny stan motywu (domyślnie dark); brak auto-read z preferencji systemu.
     const root = document.documentElement;
     root.classList.remove("theme-dark", "theme-light");
     root.classList.add(theme === "light" ? "theme-light" : "theme-dark");
@@ -52,7 +34,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } catch {
       /* ignore */
     }
-  }, [theme, hydrated]);
+  }, [theme]);
 
   const value = useMemo(
     () => ({

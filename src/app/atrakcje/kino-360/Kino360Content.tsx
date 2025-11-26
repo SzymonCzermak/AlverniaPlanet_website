@@ -68,22 +68,22 @@ const COPY: Record<
       {
         title: "Kompleks kopuł nocą",
         body: "Widok z lotu ptaka na wszystkie kopuły Alvernia Planet.",
-        image: "/galeria/Ogólne/webp/4.webp",
+        image: "/galeria/Ogolne/webp/4.webp",
       },
       {
         title: "Wejście do kopuły",
         body: "Główne lobby z charakterystycznym łukowym portalem.",
-        image: "/galeria/Ogólne/webp/5.webp",
+        image: "/galeria/Ogolne/webp/5.webp",
       },
       {
         title: "Tunel wejściowy",
         body: "Przeszklony korytarz prowadzący do wnętrza kompleksu.",
-        image: "/galeria/Ogólne/webp/6.webp",
+        image: "/galeria/Ogolne/webp/6.webp",
       },
       {
         title: "Otoczenie kompleksu",
         body: "Po seansie widzowie mogą eksplorować pozostałe strefy Alvernia Planet.",
-        image: "/galeria/Ogólne/webp/1.webp",
+        image: "/galeria/Ogolne/webp/1.webp",
       },
     ],
   },
@@ -128,22 +128,22 @@ const COPY: Record<
       {
         title: "Domes complex at night",
         body: "Aerial view of all Alvernia Planet domes after dark.",
-        image: "/galeria/Ogólne/webp/4.webp",
+        image: "/galeria/Ogolne/webp/4.webp",
       },
       {
         title: "Dome entrance",
         body: "Main lobby with the signature arched portal.",
-        image: "/galeria/Ogólne/webp/5.webp",
+        image: "/galeria/Ogolne/webp/5.webp",
       },
       {
         title: "Entrance tunnel",
         body: "A glass corridor leading into the complex interior.",
-        image: "/galeria/Ogólne/webp/6.webp",
+        image: "/galeria/Ogolne/webp/6.webp",
       },
       {
         title: "Around the complex",
         body: "After the screening, guests can explore other Alvernia Planet zones.",
-        image: "/galeria/Ogólne/webp/1.webp",
+        image: "/galeria/Ogolne/webp/1.webp",
       },
     ],
   },

@@ -66,7 +66,7 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
             "Immersyjne projekcje sferyczne w jednej z najbardziej zaawansowanych kopuł w Europie.",
           cta: "Zobacz kino 360°",
           href: "/atrakcje/kino-360",
-          image: "/galeria/Ogólne/webp/4.webp",
+          image: "/galeria/Ogolne/webp/4.webp",
           imageAlt: "Wnętrze kopuły z ekranem 360°",
         },
         {
@@ -159,7 +159,7 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
           description: "Immersive dome screenings with the picture all around you.",
           cta: "See the 360° cinema",
           href: "/atrakcje/kino-360",
-          image: "/galeria/Ogólne/webp/4.webp",
+          image: "/galeria/Ogolne/webp/4.webp",
           imageAlt: "Dome interior prepared for 360° projection",
         },
         {
@@ -566,10 +566,10 @@ export default function Page() {
             >
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 justify-items-center">
                 {[
-                  { src: "/galeria/Ogólne/webp/1.webp", alt: "Kopuły kompleksu – widok z góry" },
-                  { src: "/galeria/Ogólne/webp/2.webp", alt: "Przeszklony łącznik" },
-                  { src: "/galeria/Ogólne/webp/3.webp", alt: "Industrialne wnętrze kopuły" },
-                  { src: "/galeria/Ogólne/webp/4.webp", alt: "Strefa eventowa w kopule" },
+                  { src: "/galeria/Ogolne/webp/1.webp", alt: "Kopuły kompleksu – widok z góry" },
+                  { src: "/galeria/Ogolne/webp/2.webp", alt: "Przeszklony łącznik" },
+                  { src: "/galeria/Ogolne/webp/3.webp", alt: "Industrialne wnętrze kopuły" },
+                  { src: "/galeria/Ogolne/webp/4.webp", alt: "Strefa eventowa w kopule" },
                 ].map((img) => (
                   <div
                     key={img.src}

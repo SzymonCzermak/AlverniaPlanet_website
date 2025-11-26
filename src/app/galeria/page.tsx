@@ -27,9 +27,8 @@ const range = (n: number) => Array.from({ length: n }, (_, i) => i + 1);
 
 // NOTE:
 // Obrazy są w public/galeria/.../webp/*.webp (podfolder webp).
-// Ponieważ w nazwie folderu są polskie znaki, generujemy ścieżki przez encodeURIComponent,
-// żeby uniknąć problemów z URL-ami.
-const GENERAL_DIR = `/galeria/${encodeURIComponent("Ogólne")}`;
+// Używamy bezpośredniej nazwy z polskim znakiem, żeby ścieżka odpowiadała strukturze w /public.
+const GENERAL_DIR = `/galeria/Ogolne`;
 const FILM_DIR = `/galeria/Sciezka_filmowa`;
 const EVENTS_DIR = `/galeria/${encodeURIComponent("Wydarzenia")}`;
 const EXHIBITION_DIR = `/galeria/Wystawa/HarryPotter_TheExhibition`;

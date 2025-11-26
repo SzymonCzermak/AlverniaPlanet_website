@@ -50,33 +50,13 @@ const I18nCtx = createContext<{
 });
 
 export function I18nProvider({ children, initialLocale }: { children: React.ReactNode; initialLocale?: Locale }) {
-  const [locale, setLocale] = useState<Locale>(() => {
-    if (initialLocale) return initialLocale;
-    if (typeof window !== "undefined") {
-      const cookieMatch = document.cookie.match(/(?:^|; )locale=(pl|en)/);
-      if (cookieMatch) return cookieMatch[1] as Locale;
-      const saved = localStorage.getItem("locale");
-      if (saved === "pl" || saved === "en") return saved as Locale;
-    }
-    return "pl";
-  });
+  const [locale, setLocale] = useState<Locale>(() => initialLocale ?? "pl");
 
   useEffect(() => {
     try { localStorage.setItem("locale", locale); } catch {}
     try { document.cookie = `locale=${locale}; Path=/; Max-Age=${60 * 60 * 24 * 400}`; } catch {}
     try { document.documentElement.setAttribute("lang", locale); } catch {}
   }, [locale]);
-
-  useEffect(() => {
-    const onStorage = (e: StorageEvent) => {
-      if (e.key === "locale") {
-        const v = e.newValue;
-        if (v === "pl" || v === "en") setLocale(v as Locale);
-      }
-    };
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
 
   const t = useMemo(() => {
     const dict = DICTS[locale];

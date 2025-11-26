@@ -179,8 +179,8 @@ const VIDEO_SHOWCASE: Record<
 
 const PREVIEW_IMG: Record<Locale, { src: string; alt: string }>[] = [
   {
-    pl: { src: "/galeria/Ogólne/webp/1.webp", alt: "Kopuły z lotu ptaka" },
-    en: { src: "/galeria/Ogólne/webp/1.webp", alt: "Domes – aerial view" },
+    pl: { src: "/galeria/Ogolne/webp/1.webp", alt: "Kopuły z lotu ptaka" },
+    en: { src: "/galeria/Ogolne/webp/1.webp", alt: "Domes – aerial view" },
   } as any,
   {
     pl: {

@@ -64,10 +64,10 @@ const COPY: Record<
 };
 
 const GALLERY_IMAGES = [
-  { src: "/galeria/Ogólne/webp/1.webp", alt: "Kopuły kompleksu – widok z góry" },
-  { src: "/galeria/Ogólne/webp/2.webp", alt: "Przeszklony łącznik" },
-  { src: "/galeria/Ogólne/webp/3.webp", alt: "Industrialne wnętrze kopuły" },
-  { src: "/galeria/Ogólne/webp/4.webp", alt: "Strefa eventowa w kopule" },
+  { src: "/galeria/Ogolne/webp/1.webp", alt: "Kopuły kompleksu – widok z góry" },
+  { src: "/galeria/Ogolne/webp/2.webp", alt: "Przeszklony łącznik" },
+  { src: "/galeria/Ogolne/webp/3.webp", alt: "Industrialne wnętrze kopuły" },
+  { src: "/galeria/Ogolne/webp/4.webp", alt: "Strefa eventowa w kopule" },
 ];
 
 export default function AboutAlverniaPage() {
