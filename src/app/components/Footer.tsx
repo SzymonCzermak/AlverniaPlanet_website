@@ -50,9 +50,9 @@ const FOOTER_COPY: Record<
     addressLines: ["Alvernia Planet", "ul. Ferdynanda Wspaniałego 1", "32-566 Nieporaz, Polska"],
     policies: [
       { label: "Regulamin", href: "/legal/Regulamin.pdf" },
-      { label: "Polityka prywatności", href: "/legal/Polityka prywatności.pdf" },
-      { label: "Polityka cookies", href: "/legal/Polityka plików cookies.pdf" },
-      { label: "Ochrona małoletnich", href: "/legal/Ochrona małoletnich.pdf" },
+      { label: "Polityka prywatności", href: "/legal/polityka-prywatnosci.pdf" },
+      { label: "Polityka cookies", href: "/legal/polityka-cookies.pdf" },
+      { label: "Ochrona małoletnich", href: "/legal/ochrona-maloletnich.pdf" },
     ],
     sections: [
       {
@@ -100,9 +100,9 @@ const FOOTER_COPY: Record<
     addressLines: ["Alvernia Planet", "ul. Ferdynanda Wspaniałego 1", "32-566 Nieporaz, Poland"],
     policies: [
       { label: "Terms & conditions", href: "/legal/Regulamin.pdf" },
-      { label: "Privacy policy", href: "/legal/Polityka prywatności.pdf" },
-      { label: "Cookies policy", href: "/legal/Polityka plików cookies.pdf" },
-      { label: "Minors protection", href: "/legal/Ochrona małoletnich.pdf" },
+      { label: "Privacy policy", href: "/legal/polityka-prywatnosci.pdf" },
+      { label: "Cookies policy", href: "/legal/polityka-cookies.pdf" },
+      { label: "Minors protection", href: "/legal/ochrona-maloletnich.pdf" },
     ],
     sections: [
       {
@@ -135,7 +135,7 @@ const FOOTER_COPY: Record<
   },
 };
 
-const MESSENGER_URL = "https://m.me/alverniaplanet";
+const MESSENGER_URL = "https://m.me/alverniaplanet?ref=footer";
 
 export default function Footer() {
   const { locale } = useI18n();

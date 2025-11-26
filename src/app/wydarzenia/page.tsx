@@ -179,22 +179,22 @@ const VIDEO_SHOWCASE: Record<
 
 const PREVIEW_IMG: Record<Locale, { src: string; alt: string }>[] = [
   {
-    pl: { src: "/galeria/Ogolne/webp/1.webp", alt: "Kopuły z lotu ptaka" },
-    en: { src: "/galeria/Ogolne/webp/1.webp", alt: "Domes – aerial view" },
+    pl: { src: "/wydarzenia/Koncert_poster.webp", alt: "Kopuły z lotu ptaka" },
+    en: { src: "/wydarzenia/Koncert_poster.webp", alt: "Domes – aerial view" },
   } as any,
   {
     pl: {
-      src: "/galeria/Sciezka_filmowa/webp/1.webp",
+      src: "/wydarzenia/Bankiet_poster.webp",
       alt: "Wnętrza ścieżki filmowej",
     },
     en: {
-      src: "/galeria/Sciezka_filmowa/webp/1.webp",
+      src: "/wydarzenia/Bankiet_poster.webp",
       alt: "Film path interiors",
     },
   } as any,
   {
-    pl: { src: "/galeria/Wydarzenia/webp/1.webp", alt: "Scena wydarzenia" },
-    en: { src: "/galeria/Wydarzenia/webp/1.webp", alt: "Event scene" },
+    pl: { src: "/wydarzenia/Club_poster.webp", alt: "Scena wydarzenia" },
+    en: { src: "/wydarzenia/Club_poster.webp", alt: "Event scene" },
   } as any,
 ];
 
@@ -383,6 +383,10 @@ function EventVideo({ src, poster, className, loadingLabel, fallbackText }: Even
         poster={poster}
         onLoadedData={() => setIsLoaded(true)}
         onPause={(e) => e.currentTarget.play()}
+        onEnded={(e) => {
+          e.currentTarget.currentTime = 0;
+          e.currentTarget.play();
+        }}
       >
         <source src={src} type="video/mp4" />
         {fallbackText}
@@ -423,10 +427,6 @@ function VideoTile({ item, loadingLabel, fallbackText }: VideoTileProps) {
             onLoad={() => setIsLoaded(true)}
           />
         </div>
-        <div className="px-4 pb-4 pt-3 space-y-1.5">
-          <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-          <p className="text-sm text-gray-200 leading-relaxed">{item.body}</p>
-        </div>
       </div>
     );
   }
@@ -440,10 +440,6 @@ function VideoTile({ item, loadingLabel, fallbackText }: VideoTileProps) {
         loadingLabel={loadingLabel}
         fallbackText={fallbackText}
       />
-      <div className="px-4 pb-4 pt-3 space-y-1.5">
-        <h3 className="text-lg font-semibold text-white">{item.title}</h3>
-        <p className="text-sm text-gray-200 leading-relaxed">{item.body}</p>
-      </div>
     </div>
   );
 }
@@ -504,6 +500,12 @@ export default function EventsPage() {
                 loop
                 muted
                 playsInline
+                preload="auto"
+                poster="/wydarzenia/AP_wydarzenia_poster.webp"
+                onEnded={(e) => {
+                  e.currentTarget.currentTime = 0;
+                  e.currentTarget.play();
+                }}
               >
                 <source src="/wydarzenia/AP_wydarzenia.webm" type="video/webm" />
                 <source src="/wydarzenia/AP_wydarzenia.mp4" type="video/mp4" />
@@ -754,7 +756,7 @@ export default function EventsPage() {
               >
                 <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] md:aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-white/10 bg-black/20">
                   <Image
-                    src="/wydarzenia/mapka.png"
+                    src="/wydarzenia/mapka.webp"
                     alt="Mapa obiektu Alvernia Planet"
                     fill
                     sizes="100vw"

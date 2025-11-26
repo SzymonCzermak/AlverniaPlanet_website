@@ -32,7 +32,7 @@ const GENERAL_DIR = `/galeria/Ogolne`;
 const FILM_DIR = `/galeria/Sciezka_filmowa`;
 const EVENTS_DIR = `/galeria/${encodeURIComponent("Wydarzenia")}`;
 const EXHIBITION_DIR = `/galeria/Wystawa/HarryPotter_TheExhibition`;
-const generalImages = [1, 2, 3, 4, 5, 6, 8].map((n) => `${GENERAL_DIR}/webp/${n}.webp`);
+const generalImages = range(8).map((n) => `${GENERAL_DIR}/webp/${n}.webp`);
 const filmImages = range(8).map((n) => `${FILM_DIR}/webp/${n}.webp`);
 const eventsImages = range(8).map((n) => `${EVENTS_DIR}/webp/${n}.webp`);
 const harryPotterImages = range(8).map((n) => `${EXHIBITION_DIR}/webp/${n}.webp`);
@@ -99,6 +99,7 @@ const CAPTIONS: Record<Locale, { general: string[]; film: string[]; events: stri
       "Kompleks nocą z lotu ptaka",
       "Wejście do kopuły",
       "Przeszklony tunel wejściowy",
+      "Domy kopułowe o zmierzchu",
       "Kompleks z drona",
     ],
     film: [
@@ -140,6 +141,7 @@ const CAPTIONS: Record<Locale, { general: string[]; film: string[]; events: stri
       "Night view of the complex",
       "Dome entrance",
       "Glass entry tunnel",
+      "Domes at dusk",
       "Drone view of the complex",
     ],
     film: [

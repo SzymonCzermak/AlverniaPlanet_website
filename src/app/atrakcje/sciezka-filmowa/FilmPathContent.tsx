@@ -186,6 +186,12 @@ export default function FilmPathContent() {
                 loop
                 muted
                 playsInline
+                preload="auto"
+                poster="/wycieczka/APE_sciezafilmowa_poster.webp"
+                onEnded={(e) => {
+                  e.currentTarget.currentTime = 0;
+                  e.currentTarget.play();
+                }}
               >
                 <source src="/wycieczka/APE_sciezafilmowa.webm" type="video/webm" />
                 <source src="/wycieczka/APE_sciezafilmowa.mp4" type="video/mp4" />
@@ -197,10 +203,12 @@ export default function FilmPathContent() {
                   <p className="text-xs uppercase tracking-[0.3em] force-overlay-muted">
                     {t.heroTag}
                   </p>
-                  <h1 className="text-5xl sm:text-6xl font-extrabold leading-tight drop-shadow-[0_0_24px_rgba(0,0,0,0.55)]">
+                  <h1 className="text-4xl sm:text-6xl font-extrabold leading-tight drop-shadow-[0_0_24px_rgba(0,0,0,0.55)]">
                     {t.heroTitle}
                   </h1>
-                  <p className="force-overlay-dim text-lg max-w-3xl mx-auto">{t.heroLead}</p>
+                  <p className="force-overlay-dim text-base sm:text-lg max-w-3xl mx-auto">
+                    {t.heroLead}
+                  </p>
                 </div>
               </div>
             </div>

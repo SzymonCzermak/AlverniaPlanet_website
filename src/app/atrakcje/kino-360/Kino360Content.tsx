@@ -166,7 +166,14 @@ export default function Kino360Content() {
                 loop
                 muted
                 playsInline
+                preload="auto"
+                poster="/kino360/Kino360_poster.webp"
+                onEnded={(e) => {
+                  e.currentTarget.currentTime = 0;
+                  e.currentTarget.play();
+                }}
               >
+                <source src="/kino360/Kino360.webm" type="video/webm" />
                 <source src="/kino360/Kino360.mp4" type="video/mp4" />
                 {copy.videoFallback}
               </video>
@@ -177,10 +184,10 @@ export default function Kino360Content() {
                   <p className="text-xs uppercase tracking-[0.3em] force-overlay-muted">
                     {copy.heroTag}
                   </p>
-                  <h1 className="text-5xl sm:text-6xl font-extrabold leading-tight drop-shadow-[0_0_24px_rgba(0,0,0,0.55)]">
+                  <h1 className="text-4xl sm:text-6xl font-extrabold leading-tight drop-shadow-[0_0_24px_rgba(0,0,0,0.55)]">
                     {copy.heroTitle}
                   </h1>
-                  <p className="force-overlay-dim text-lg max-w-3xl mx-auto">
+                  <p className="force-overlay-dim text-base sm:text-lg max-w-3xl mx-auto">
                     {copy.heroLead}
                   </p>
                 </div>

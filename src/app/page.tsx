@@ -79,11 +79,11 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
           imageAlt: "Elementy scenografii na ścieżce filmowej",
         },
         {
-          title: "Wystawa tematyczna",
+          title: "Wystawy tematyczne",
           description:
             "Stała ekspozycja inspirowana światem filmu i nauki, idealna dla grup i rodzin.",
-          cta: "Zapytaj o wystawę",
-          href: "/kontakt",
+          cta: "Odkryj wystawę",
+          href: "/atrakcje/wystawa",
           image: "/galeria/Wystawa/HarryPotter_TheExhibition/webp/1.webp",
           imageAlt: "Eksponat na wystawie tematycznej",
         },
@@ -137,7 +137,7 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
       description:
         "Alvernia Planet to unikalne centrum edukacji i rozrywki, w którym nauka spotyka się z filmową magią.",
       cta: "Poznaj nas",
-      href: "/o-nas",
+      href: "/o-alvernia-planet",
     },
     tickets: {
       title: "Bilety",
@@ -175,8 +175,8 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
           title: "Curated Exhibition",
           description:
             "A thematic exhibition inspired by film and science—great for families and groups.",
-          cta: "Ask about the exhibition",
-          href: "/kontakt",
+          cta: "Discover the exhibition",
+          href: "/atrakcje/wystawa",
           image: "/galeria/Wystawa/HarryPotter_TheExhibition/webp/1.webp",
           imageAlt: "Exhibit piece at the thematic exhibition",
         },
@@ -237,7 +237,7 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
       description:
         "Alvernia Planet is a unique hub of education and entertainment where science meets cinematic magic.",
       cta: "Meet us",
-      href: "/o-nas",
+      href: "/o-alvernia-planet",
     },
     tickets: {
       title: "Tickets",
@@ -250,7 +250,6 @@ const HOME_COPY: Record<Locale, HomeCopy> = {
   },
 };
 
-const PROMO_POSTER = "/promo-poster.jpg"; // Opcjonalny plakat
 const GOOGLE_PLACE_URL =
   "https://www.google.com/maps/place/Alvernia+Planet/@50.1022663,19.5444717,637m/data=!3m1!1e3!4m8!3m7!1s0x4716f227b90ec1a1:0xbd1dbadc60237cc3!8m2!3d50.1022629!4d19.5470466!9m1!1b1!16s%2Fg%2F1yy3vkg22?hl=pl&entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D";
 const CATEGORY_COLORS: Record<string, string> = {
@@ -310,11 +309,11 @@ export default function Page() {
       alt: loc === "en" ? "Stage setup during an event" : "Scenografia sceny podczas wydarzenia",
     },
     {
-      src: "/galeria/Wydarzenia/webp/2.webp",
+      src: "/galeria/Wydarzenia/webp/4.webp",
       alt: loc === "en" ? "Guests networking in the dome" : "Goście podczas networkingu w kopule",
     },
     {
-      src: "/galeria/Wydarzenia/webp/3.webp",
+      src: "/galeria/Wydarzenia/webp/5.webp",
       alt: loc === "en" ? "Live performance in the dome" : "Występ na żywo w kopule",
     },
   ];
@@ -348,18 +347,22 @@ export default function Page() {
       {/* Wideo jako tło pełnoekranowe pod AppBar */}
       <section className="relative z-0 -mt-[64px] sm:-mt-[72px]">
         <video
-          poster={PROMO_POSTER}
           autoPlay
           muted
           loop
           playsInline
           preload="auto"
+          poster="/home/AP_ogolne_poster.webp"
           className="block w-full h-[calc(100svh+64px)] sm:h-[calc(100svh+72px)] object-cover pointer-events-none"
           controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"
           disablePictureInPicture
           tabIndex={-1}
           onContextMenu={(e) => e.preventDefault()}
           onPause={(e) => e.currentTarget.play()}
+          onEnded={(e) => {
+            e.currentTarget.currentTime = 0;
+            e.currentTarget.play();
+          }}
           onError={() => console.warn("[video] playback error — check file names/paths in /public")}
         >
           {/* Prefer WEBM, then fall back to MP4 */}
@@ -420,7 +423,7 @@ export default function Page() {
           <div className="absolute inset-x-0 bottom-0 h-full opacity-20 mix-blend-screen bg-[radial-gradient(80%_120%_at_50%_100%,rgba(255,255,255,0.35),rgba(0,0,0,0)_60%)]" />
           {/* subtle white separator, same as footer line */}
           <div className="absolute inset-x-0 bottom-0 flex justify-center">
-            <div className="h-px w-full max-w-6xl bg-gradient-to-r from-transparent via-white/35 to-transparent opacity-70" />
+            <div className="h-px w-full max-w-4xl bg-white/10" />
           </div>
         </div>
       </section>
@@ -499,20 +502,11 @@ export default function Page() {
               </div>
             </Card>
 
-            <Card title={copy.about.title} titleCentered titleDivider>
+            <Card title={copy.about.title} titleCentered titleDivider className="md:col-span-2">
               <p className="text-gray-300">{copy.about.description}</p>
               <div className="mt-6 flex justify-center">
                 <PrimaryButton href={copy.about.href} size="lg">
                   {copy.about.cta}
-                </PrimaryButton>
-              </div>
-            </Card>
-
-            <Card title={copy.tickets.title} titleCentered titleDivider>
-              <p className="text-gray-300">{copy.tickets.description}</p>
-              <div className="mt-6 flex justify-center">
-                <PrimaryButton href={copy.tickets.href} size="lg">
-                  {copy.tickets.cta}
                 </PrimaryButton>
               </div>
             </Card>

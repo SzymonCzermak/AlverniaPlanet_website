@@ -133,6 +133,12 @@ export default function WystawaContent() {
                 loop
                 muted
                 playsInline
+                preload="auto"
+                poster="/wystawa/AP_wystawaHPX_poster.webp"
+                onEnded={(e) => {
+                  e.currentTarget.currentTime = 0;
+                  e.currentTarget.play();
+                }}
               >
                 <source src="/wystawa/AP_wystawaHPX.webm" type="video/webm" />
                 <source src="/wystawa/AP_wystawaHPX.mp4" type="video/mp4" />
@@ -145,10 +151,10 @@ export default function WystawaContent() {
                   <p className="text-xs uppercase tracking-[0.3em] force-overlay-muted">
                     {copy.heroTag}
                   </p>
-                  <h1 className="text-5xl sm:text-6xl font-extrabold leading-tight drop-shadow-[0_0_24px_rgba(0,0,0,0.55)]">
+                  <h1 className="text-4xl sm:text-6xl font-extrabold leading-tight drop-shadow-[0_0_24px_rgba(0,0,0,0.55)]">
                     {copy.heroTitle}
                   </h1>
-                  <p className="force-overlay-dim text-lg max-w-3xl mx-auto">
+                  <p className="force-overlay-dim text-base sm:text-lg max-w-3xl mx-auto">
                     {copy.heroLead}
                   </p>
                 </div>
