@@ -28,10 +28,6 @@ type SectionCard = {
   href: string;
 };
 
-type ReviewsResponse = {
-  reviews?: Testimonial[];
-};
-
 type HomeCopy = {
   heroTitle: string;
   attractions: {
@@ -302,7 +298,6 @@ function formatDate(locale: Locale, iso: string) {
 
 export default function Page() {
   const [showGifHint, setShowGifHint] = useState(false);
-  const [liveReviews, setLiveReviews] = useState<Testimonial[] | null>(null);
   const { locale } = useI18n();
   const loc = ((locale as Locale) ?? "pl") as Locale;
   const copy = HOME_COPY[loc];
@@ -332,26 +327,7 @@ export default function Page() {
     };
   }, []);
 
-  useEffect(() => {
-    let active = true;
-    const run = async () => {
-      try {
-        const res = await fetch("/api/google-reviews");
-        if (!res.ok) return;
-        const data = (await res.json()) as ReviewsResponse;
-        if (!active || !data.reviews?.length) return;
-        setLiveReviews(data.reviews.slice(0, 3));
-      } catch {
-        // ignore network/availability errors, fall back to static copy
-      }
-    };
-    run();
-    return () => {
-      active = false;
-    };
-  }, []);
-
-  const reviewsToShow = liveReviews?.length ? liveReviews : copy.testimonials.reviews;
+  const reviewsToShow = copy.testimonials.reviews;
 
   return (
     <main className="relative min-h-screen text-white">
