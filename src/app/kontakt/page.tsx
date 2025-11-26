@@ -128,11 +128,6 @@ const fadeUp: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
 };
 
-const fade: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.6 } },
-};
-
 const stagger: Variants = {
   hidden: {},
   show: { transition: { staggerChildren: 0.14 } },

@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaFacebookF, FaInstagram, FaTiktok, FaFacebookMessenger } from "react-icons/fa";
 import { useI18n } from "@/app/i18n-provider";
-import { PrimaryButton } from "@/app/components/PrimaryButton";
 import { useTheme } from "@/app/theme-provider";
 
 type Locale = "pl" | "en";

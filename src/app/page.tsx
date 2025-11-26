@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, useMemo } from "react";
 import Image from "next/image";
-import { SimpleStarfield } from "@/app/components/SimpleStarfield";
 import { useI18n } from "@/app/i18n-provider";
 import Card from "@/app/components/Card";
 import { PrimaryButton } from "@/app/components/PrimaryButton";
@@ -272,8 +271,7 @@ type HomeNewsItem = {
 };
 
 function getLatestNews(loc: Locale, limit = 3): HomeNewsItem[] {
-  const t = translationsData as any;
-  const posts = (t[loc]?.posts ?? {}) as Record<string, { title: string; excerpt: string }>;
+  const posts: Record<string, { title: string; excerpt: string }> = translationsData[loc]?.posts ?? {};
   return NEWS_META.slice()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, limit)
@@ -318,6 +316,7 @@ export default function Page() {
     },
   ];
 
+  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
   const cycleRef = useRef<number | null>(null);
   useEffect(() => {
     const steps: Array<{ show: boolean; dur: number }> = [
@@ -340,6 +339,43 @@ export default function Page() {
     };
   }, []);
 
+  // Safari: wymuś loop/autoplay inline nawet po zakończeniu
+  useEffect(() => {
+    const video = heroVideoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    const ensurePlay = () => {
+      const p = video.play();
+      if (p && typeof p.catch === "function") {
+        p.catch(() => {});
+      }
+    };
+
+    const handleEnded = () => {
+      video.currentTime = 0;
+      ensurePlay();
+    };
+    const handlePause = () => {
+      if (video.paused) ensurePlay();
+    };
+
+    ensurePlay();
+    const handleWebkitEndFullscreen = () => ensurePlay();
+
+    video.addEventListener("ended", handleEnded);
+    video.addEventListener("pause", handlePause);
+    video.addEventListener("webkitendfullscreen", handleWebkitEndFullscreen as EventListener);
+    return () => {
+      video.removeEventListener("ended", handleEnded);
+      video.removeEventListener("pause", handlePause);
+      video.removeEventListener("webkitendfullscreen", handleWebkitEndFullscreen as EventListener);
+    };
+  }, []);
+
   const reviewsToShow = copy.testimonials.reviews;
 
   return (
@@ -347,22 +383,18 @@ export default function Page() {
       {/* Wideo jako tło pełnoekranowe pod AppBar */}
       <section className="relative z-0 -mt-[64px] sm:-mt-[72px]">
         <video
+          ref={heroVideoRef}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           poster="/home/AP_ogolne_poster.webp"
           className="block w-full h-[calc(100svh+64px)] sm:h-[calc(100svh+72px)] object-cover pointer-events-none"
           controlsList="nodownload noplaybackrate noremoteplayback nofullscreen"
           disablePictureInPicture
           tabIndex={-1}
           onContextMenu={(e) => e.preventDefault()}
-          onPause={(e) => e.currentTarget.play()}
-          onEnded={(e) => {
-            e.currentTarget.currentTime = 0;
-            e.currentTarget.play();
-          }}
           onError={() => console.warn("[video] playback error — check file names/paths in /public")}
         >
           {/* Prefer WEBM, then fall back to MP4 */}
@@ -427,11 +459,6 @@ export default function Page() {
           </div>
         </div>
       </section>
-
-      {/* Efekt gwiazd nad wideo (zawsze pod AppBar) */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <SimpleStarfield intensity="medium" parallax={14} interactive />
-      </div>
 
       {/* Content below the hero video */}
       <section id="content-start" className="relative z-10 mt-8 sm:mt-12 px-4 py-14">

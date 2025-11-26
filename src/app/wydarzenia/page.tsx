@@ -3,16 +3,11 @@
 import { motion, type Variants } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { useI18n } from "@/app/i18n-provider";
-import { SimpleStarfield } from "@/app/components/SimpleStarfield";
 import Card from "@/app/components/Card";
 import Image from "next/image";
 import Link from "next/link";
 
 // ===== Animations (spójne z resztą serwisu) =====
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
 const fade: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { duration: 0.6 } },
@@ -361,6 +356,42 @@ function EventVideo({ src, poster, className, loadingLabel, fallbackText }: Even
     };
   }, []);
 
+  // Safari: dopilnuj loop/autoplay inline
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+
+    const ensurePlay = () => {
+      const p = video.play();
+      if (p && typeof p.catch === "function") {
+        p.catch(() => {});
+      }
+    };
+
+    const handleEnded = () => {
+      video.currentTime = 0;
+      ensurePlay();
+    };
+    const handlePause = () => {
+      if (video.paused) ensurePlay();
+    };
+    const handleWebkitEndFullscreen = () => ensurePlay();
+
+    ensurePlay();
+    video.addEventListener("ended", handleEnded);
+    video.addEventListener("pause", handlePause);
+    video.addEventListener("webkitendfullscreen", handleWebkitEndFullscreen as EventListener);
+    return () => {
+      video.removeEventListener("ended", handleEnded);
+      video.removeEventListener("pause", handlePause);
+      video.removeEventListener("webkitendfullscreen", handleWebkitEndFullscreen as EventListener);
+    };
+  }, []);
+
   return (
     <div
       className={`relative h-56 md:h-full overflow-hidden rounded-2xl ring-1 ring-white/10 bg-black/20 ${
@@ -379,14 +410,9 @@ function EventVideo({ src, poster, className, loadingLabel, fallbackText }: Even
         muted
         loop
         playsInline
-        preload="none"
+        preload="metadata"
         poster={poster}
         onLoadedData={() => setIsLoaded(true)}
-        onPause={(e) => e.currentTarget.play()}
-        onEnded={(e) => {
-          e.currentTarget.currentTime = 0;
-          e.currentTarget.play();
-        }}
       >
         <source src={src} type="video/mp4" />
         {fallbackText}
@@ -483,11 +509,6 @@ export default function EventsPage() {
 
   return (
     <main className="relative min-h-screen">
-      {/* Tło gwiazd */}
-      <div className="fixed inset-0 -z-10 pointer-events-none">
-        <SimpleStarfield intensity="medium" parallax={14} interactive />
-      </div>
-
       {/* Główna treść strony */}
       <section className="relative z-10 px-4 py-16 sm:py-20">
         {/* Hero video z tytułem */}

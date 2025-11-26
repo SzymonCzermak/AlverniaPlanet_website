@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import { SimpleStarfield } from "@/app/components/SimpleStarfield";
 import { motion, type Variants } from "framer-motion";
 import { useI18n } from "@/app/i18n-provider";
 import { useState, useEffect } from "react";
@@ -209,11 +208,6 @@ export default function GalleryPage() {
 
   return (
     <main className="relative min-h-screen text-white">
-      {/* Tło gwiazd */}
-<div className="fixed inset-0 -z-10 pointer-events-none">
-  <SimpleStarfield intensity="medium" parallax={14} interactive />
-</div>
-
       <motion.div initial="hidden" animate="show" variants={fade} className="mx-auto w-full max-w-6xl px-4 py-16 sm:py-20">
         {/* Nagłówek strony */}
         <header className="text-center mb-10 sm:mb-12">

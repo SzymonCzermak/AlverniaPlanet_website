@@ -25,7 +25,8 @@ export default function RootLayout({
     <html lang={initialLocale} suppressHydrationWarning className="theme-dark">
       <body className="min-h-screen bg-[var(--ap-bg)] text-[color:var(--ap-text)] transition-colors duration-300">
         <ThemeProvider>
-          <SimpleStarfield className="fixed inset-0 -z-10" />
+          {/* Statyczne tło bez parallaxu, żeby uniknąć listenerów JS */}
+          <SimpleStarfield className="fixed inset-0 -z-10" interactive={false} />
           <I18nProvider initialLocale={initialLocale}>
             <div className="relative z-10 min-h-screen flex flex-col">
               <AppBar />
